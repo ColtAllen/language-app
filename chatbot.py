@@ -3,7 +3,7 @@ import time
 from datetime import datetime
 import re
 import base64
-from langchain_openai import ChatOpenAI
+from langchain_google_genai import ChatGoogleGenerativeAI
 from utils import get_level_appropriate_content, get_level_color, format_level_badge
 
 # Generic system prompt with language-specific adaptation
@@ -655,22 +655,22 @@ def extract_topics_llm(message):
     Extract learning topics from message using LLM with caching
     """
     # Import required libraries
-    from langchain_openai import ChatOpenAI
+    from langchain_google_genai import ChatGoogleGenerativeAI
     import streamlit as st
     import json
     import re
     
     # Get API key from Streamlit secrets
-    api_key = st.secrets.get("OPENAI_API_KEY", "")
+    api_key = st.secrets.get("GOOGLE_API_KEY", "")
     if not api_key:
-        raise ValueError("OpenAI API key not configured in Streamlit secrets")
-    
+        raise ValueError("Google API key not configured in Streamlit secrets")
+
     # Initialize the LLM
-    model_name = st.secrets.get("MODEL_NAME", "gpt-4.1-mini-2025-04-14")
-    chat = ChatOpenAI(
-        openai_api_key=api_key,
+    model_name = st.secrets.get("MODEL_NAME", "gemini-2.0-flash")
+    chat = ChatGoogleGenerativeAI(
+        google_api_key=api_key,
         model=model_name,
-        max_tokens=150  # Small context for topic extraction
+        max_output_tokens=150  # Small context for topic extraction
     )
     
     # Get current language and level if available
@@ -889,22 +889,22 @@ def get_language_flag(lang_code):
         }
         return language_flags.get(lang_code, "🌍")
 
-# Function to call OpenAI API using LangChain's ChatOpenAI
+# Function to call Gemini API using LangChain's ChatGoogleGenerativeAI
 def call_openai_api(session_state):
     try:
         # Get API key and model from Streamlit secrets
-        api_key = st.secrets.get("OPENAI_API_KEY", "")
-        model_name = st.secrets.get("MODEL_NAME", "gpt-4.1-mini-2025-04-14")
+        api_key = st.secrets.get("GOOGLE_API_KEY", "")
+        model_name = st.secrets.get("MODEL_NAME", "gemini-2.0-flash")
         max_tokens = st.secrets.get("MAX_TOKENS", 8000)
-        
+
         if not api_key:
-            return "Error: OpenAI API key not configured. Please set up your API key in the .streamlit/secrets.toml file."
-        
-        # Initialize the LangChain OpenAI client
-        chat = ChatOpenAI(
-            openai_api_key=api_key,
+            return "Error: Google API key not configured. Please set up your API key in the .streamlit/secrets.toml file."
+
+        # Initialize the LangChain Gemini client
+        chat = ChatGoogleGenerativeAI(
+            google_api_key=api_key,
             model=model_name,
-            max_tokens=max_tokens,
+            max_output_tokens=max_tokens,
             streaming=True
         )
         
@@ -1080,6 +1080,6 @@ Remember: Always visually include the {level_code} level indicator in your respo
             return collected_content
     
     except Exception as e:
-        st.error(f"Error calling OpenAI API: {str(e)}")
+        st.error(f"Error calling Gemini API: {str(e)}")
         return f"I'm sorry, there was an error processing your request: {str(e)}. Please try again."
 

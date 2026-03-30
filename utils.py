@@ -379,20 +379,20 @@ def detect_language_llm(text: str) -> str:
     Detect language using LLM with caching
     """
     # Import required libraries
-    from langchain_openai import ChatOpenAI
+    from langchain_google_genai import ChatGoogleGenerativeAI
     import streamlit as st
     
     # Get API key from Streamlit secrets
-    api_key = st.secrets.get("OPENAI_API_KEY", "")
+    api_key = st.secrets.get("GOOGLE_API_KEY", "")
     if not api_key:
-        raise ValueError("OpenAI API key not configured in Streamlit secrets")
-    
+        raise ValueError("Google API key not configured in Streamlit secrets")
+
     # Initialize the LLM
-    model_name = st.secrets.get("MODEL_NAME", "gpt-4.1-mini-2025-04-14")
-    chat = ChatOpenAI(
-        openai_api_key=api_key,
+    model_name = st.secrets.get("MODEL_NAME", "gemini-2.0-flash")
+    chat = ChatGoogleGenerativeAI(
+        google_api_key=api_key,
         model=model_name,
-        max_tokens=50  # Small context since we just need the language code
+        max_output_tokens=50  # Small context since we just need the language code
     )
     
     # Get supported languages
@@ -532,21 +532,21 @@ def extract_exercise_parameters_llm(text):
     Extract exercise parameters using LLM with caching
     """
     # Import required libraries
-    from langchain_openai import ChatOpenAI
+    from langchain_google_genai import ChatGoogleGenerativeAI
     import json
     import streamlit as st
     
     # Get API key from Streamlit secrets
-    api_key = st.secrets.get("OPENAI_API_KEY", "")
+    api_key = st.secrets.get("GOOGLE_API_KEY", "")
     if not api_key:
-        raise ValueError("OpenAI API key not configured in Streamlit secrets")
-    
+        raise ValueError("Google API key not configured in Streamlit secrets")
+
     # Initialize the LLM
-    model_name = st.secrets.get("MODEL_NAME", "gpt-4.1-mini-2025-04-14")
-    chat = ChatOpenAI(
-        openai_api_key=api_key,
+    model_name = st.secrets.get("MODEL_NAME", "gemini-2.0-flash")
+    chat = ChatGoogleGenerativeAI(
+        google_api_key=api_key,
         model=model_name,
-        max_tokens=200  # Small context for parameter extraction
+        max_output_tokens=200  # Small context for parameter extraction
     )
     
     # Get current language if available

@@ -55,7 +55,7 @@ Polyglot uses a modern technical stack with:
 
 - **Streamlit**: For the responsive web interface
 - **LangChain**: To integrate with large language models
-- **OpenAI API**: Powering the intelligent language tutoring
+- **Google Gemini API**: Powering the intelligent language tutoring
 - **Function Caching**: For performance optimization
 - **Real-time Content Generation**: Streaming responses for better user experience
 
@@ -69,7 +69,7 @@ The application is structured into three main modules:
 
 ### Prerequisites
 - Python 3.8 or higher
-- OpenAI API key
+- Google Gemini API key
 
 ### Step 1: Clone the repository
 ```bash
@@ -94,10 +94,10 @@ mkdir -p .streamlit
 touch .streamlit/secrets.toml
 ```
 
-Edit the `secrets.toml` file and add your OpenAI API key:
+Edit the `secrets.toml` file and add your Google API key:
 ```toml
-OPENAI_API_KEY = "your-api-key-here"
-MODEL_NAME = "gpt-4.1-mini-2025-04-14"  # Optional - change model
+GOOGLE_API_KEY = "your-api-key-here"
+MODEL_NAME = "gemini-2.0-flash"  # Optional - change model
 ```
 
 ### Step 5: Run the application
@@ -182,4 +182,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 - Common European Framework of Reference for Languages (CEFR) for level guidelines
 - Streamlit for the interactive web application framework
-- OpenAI and LangChain for the underlying language model integration
+- Google Gemini and LangChain for the underlying language model integration

@@ -5,8 +5,7 @@ requires-python = ">=3.11"
 dependencies = [
     "streamlit",
     "langchain",
-    "langchain-openai",
-    "openai",
+    "langchain-google-genai",
     "python-dotenv",
     "pillow",
 ]
