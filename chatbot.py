@@ -4,7 +4,7 @@ from datetime import datetime
 import re
 import base64
 from langchain_google_genai import ChatGoogleGenerativeAI
-from utils import get_level_appropriate_content, get_level_color, format_level_badge
+from utils import get_level_appropriate_content, get_level_color, format_level_badge, _content_to_str
 
 # Generic system prompt with language-specific adaptation
 SYSTEM_PROMPT = """ 
@@ -718,8 +718,8 @@ def extract_topics_llm(message):
     
     # Get the response from the LLM
     response = chat.invoke(prompt)
-    response_content = response.content.strip()
-    
+    response_content = _content_to_str(response.content).strip()
+
     # Try to parse the response as JSON
     try:
         # Extract JSON array if embedded in text
@@ -1057,8 +1057,9 @@ Remember: Always visually include the {level_code} level indicator in your respo
         
         # Process streaming response
         for chunk in chat.stream(formatted_messages):
-            if chunk.content:
-                collected_content += chunk.content
+            chunk_text = _content_to_str(chunk.content)
+            if chunk_text:
+                collected_content += chunk_text
                 
                 # Check if level badge is already in the content
                 if not collected_content.startswith('<span class="level-badge'):

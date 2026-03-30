@@ -6,6 +6,13 @@ import mimetypes
 import functools
 from typing import Tuple
 
+
+def _content_to_str(content):
+    """Extract plain text from LangChain content, which may be a string or list of parts."""
+    if isinstance(content, list):
+        return "".join(part.get("text", "") if isinstance(part, dict) else str(part) for part in content)
+    return content or ""
+
 # Level-specific color scheme
 def get_level_color(level_code):
     """
@@ -447,7 +454,7 @@ def detect_language_llm(text: str) -> str:
     response = chat.invoke(prompt)
     
     # Extract the language code and clean it
-    language_code = response.content.strip().lower()
+    language_code = _content_to_str(response.content).strip().lower()
     
     # Extract just the language code if the model didn't follow instructions
     if ":" in language_code:
@@ -586,8 +593,8 @@ def extract_exercise_parameters_llm(text):
     
     # Get the response from the LLM
     response = chat.invoke(prompt)
-    response_content = response.content.strip()
-    
+    response_content = _content_to_str(response.content).strip()
+
     # Try to parse the response as JSON
     try:
         # Extract JSON object if embedded in text

@@ -414,7 +414,7 @@ if 'greeting_added' not in st.session_state:
 if 'uploaded_file' not in st.session_state:
     st.session_state.uploaded_file = None
 if 'selected_level' not in st.session_state:
-    st.session_state.selected_level = "B1 (Intermediate)"
+    st.session_state.selected_level = "A1 (Beginner)"
 if 'level_history' not in st.session_state:
     st.session_state.level_history = []  # Track level changes for adaptive learning
 if 'user_topics' not in st.session_state:
