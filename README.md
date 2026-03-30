@@ -73,22 +73,18 @@ The application is structured into three main modules:
 
 ### Step 1: Clone the repository
 ```bash
-git clone https://github.com/yourusername/polyglot-language-tutor.git
-cd polyglot-language-tutor
+git clone https://github.com/yourusername/language-app.git
+cd language-app
 ```
 
-### Step 2: Create and activate a virtual environment
+### Step 2: Install uv (if not already installed)
 ```bash
-python -m venv venv
-# On Windows
-venv\Scripts\activate
-# On MacOS/Linux
-source venv/bin/activate
+curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
 ### Step 3: Install dependencies
 ```bash
-pip install -r requirements.txt
+uv sync
 ```
 
 ### Step 4: Set up Streamlit secrets
@@ -106,7 +102,7 @@ MODEL_NAME = "gpt-4.1-mini-2025-04-14"  # Optional - change model
 
 ### Step 5: Run the application
 ```bash
-streamlit run app.py
+uv run streamlit run app.py
 ```
 
 ## Usage Guide

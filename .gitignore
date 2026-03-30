@@ -29,3 +29,9 @@ Thumbs.db
 .vscode/
 .idea/
 *.swp
+
+# Claude
+.claude/
+
+# uv
+uv.lock
